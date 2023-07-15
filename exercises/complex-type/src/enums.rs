@@ -24,7 +24,7 @@ fn exercise1() {
     ];
 
     for msg in msgs.iter() {
-        show_message(msg)
+        show_message(msg);
     }
 }
 
@@ -34,7 +34,10 @@ fn exercise1() {
 // Make it compile
 // Run tests
 enum Message {
-    // TODO: implement the message variant types based on their usage below
+    ChangeColor((u8, u8, u8)),
+    Quit,
+    Echo(String),
+    Move(Point),
 }
 
 struct Point {
@@ -56,15 +59,15 @@ impl State {
     fn quit(&mut self) {
         self.quit = true;
     }
-
+    
     fn echo(&self, s: String) {
         println!("{}", s);
     }
-
+    
     fn move_position(&mut self, p: Point) {
         self.position = p;
     }
-
+    
     fn process(&mut self, message: Message) {
         match message {
             Message::ChangeColor(color) => {
@@ -76,17 +79,18 @@ impl State {
             Message::Echo(s) => {
                 self.echo(s);
             }
-            Message::MovePosition(p) => {
+            Message::Move(p) => {
                 self.move_position(p);
             }
         }
-    }
+    }    
 }
 
 
 // Exercise 3
 // Fix the errors
 // Run tests
+#[derive(Debug, PartialEq)]
 enum Direction {
     North,
     East,
@@ -147,7 +151,7 @@ mod tests {
             position: Point { x: 0, y: 0 },
             color: (0, 0, 0),
         };
-        state.process(Message::ChangeColor(255, 0, 255));
+        state.process(Message::ChangeColor((255, 0, 255)));
         state.process(Message::Echo(String::from("hello world")));
         state.process(Message::Move(Point { x: 10, y: 15 }));
         state.process(Message::Quit);

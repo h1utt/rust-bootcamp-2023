@@ -2,18 +2,20 @@
 // Fix the error
 // Make it compile
 // Run test
+
+#[derive(Debug, PartialEq)]
 struct Person {
     name: String,
     age: u8,
-    hobby: String
+    hobby: String,
 }
+
 fn exercise1() -> Person {
-    let age = 30;
-    // Hobby = Rust 
+    let age: u8 = 30;
     let p = Person {
         name: String::from("sunface"),
         age,
-        hobby: String::from("Rust")
+        hobby: String::from("Rust"),
     };
 
     p
@@ -57,22 +59,22 @@ struct Calculator {
 }
 
 impl Calculator {
-    fn new() -> Self {
+    fn new() -> Calculator {
         Calculator { value: 0 }
     }
-
-    fn add(&self, num: i32) {
+    fn add(&mut self, num: i32) {
         self.value += num;
     }
 
-    fn subtract(mut self, num: i32) {
+    fn subtract(&mut self, num: i32) {
         self.value -= num;
     }
-    fn clear(self) {
+
+    fn clear(&mut self) {
         self.value = 0;
     }
 
-    fn get_value(self) -> i32 {
+    fn get_value(&self) -> i32 {
         self.value
     }
 }
@@ -95,14 +97,13 @@ fn exercise4() {
 
     let u2 = User {
         first: String::from("Mary"),
-        last: u1.last.clone(),
-        age: u1.age,
+        last: u1.last.clone(), // Cloning the value from u1
+        age: u1.age, // Copying the value from u1
     };
     
-    println!("user 1: {:#?}", u1);
-    println!("user 2: {:#?}", u2);
+    println!("user: {:#?}", u1);
+    println!("user: {:#?}", u2);
     
-
 }
 
 // Exercise 5
@@ -124,9 +125,9 @@ fn exercise5() {
     });
 
     
-    let moved = foos[0].clone();
+    let moved = foos.remove(0);
 
-let moved_field = foos[0].str_val.clone();
+    let moved_field = moved.str_val;
 
 }
 
